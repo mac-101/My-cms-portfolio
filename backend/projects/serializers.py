@@ -1,5 +1,6 @@
+from django.urls import reverse
 from rest_framework import serializers
-from .models import Project, TechStack
+from .models import Project, Resume, TechStack
 
 
 class TechStackSerializer(serializers.ModelSerializer):
@@ -26,3 +27,16 @@ class ProjectSerializer(serializers.ModelSerializer):
             "featured",
             "published",
         ]
+
+
+class ResumeSerializer(serializers.ModelSerializer):
+    download_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Resume
+        fields = ["file", "download_url", "updated_at"]
+
+    def get_download_url(self, obj):
+        request = self.context.get("request")
+        url = reverse("resume-download")
+        return request.build_absolute_uri(url) if request else url
