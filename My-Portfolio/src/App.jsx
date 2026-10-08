@@ -23,15 +23,25 @@ function ScrollObserver() {
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
-    // Look for elements AFTER the new page has had a split second to render
-    const timer = setTimeout(() => {
-      const elements = document.querySelectorAll('.reveal');
-      elements.forEach(el => observer.observe(el));
-    }, 100); 
+    const observeReveals = (root) => {
+      if (root instanceof Element && root.matches('.reveal')) {
+        observer.observe(root);
+      }
+      root.querySelectorAll?.('.reveal').forEach((element) => observer.observe(element));
+    };
+
+    observeReveals(document);
+
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach(observeReveals);
+      });
+    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       observer.disconnect();
-      clearTimeout(timer);
+      mutationObserver.disconnect();
     };
   }, [location]); // Re-run this whole block whenever the URL changes!
 
