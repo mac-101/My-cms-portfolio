@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'projects',
     'rest_framework',
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -106,6 +108,10 @@ ALLOWED_HOSTS = [
     "my-cms-portfolio.onrender.com",
     "localhost",
     "127.0.0.1",
+]
+CORS_ALLOWED_ORIGINS = [
+    "https://cmc-tech.netlify.app",
+    "http://localhost",
 ]
 
 # Internationalization
