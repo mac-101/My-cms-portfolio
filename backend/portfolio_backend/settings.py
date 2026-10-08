@@ -100,6 +100,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ALLOWED_HOSTS = [
+    "my-cms-portfolio.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
