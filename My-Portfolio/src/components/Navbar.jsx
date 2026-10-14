@@ -86,7 +86,7 @@ export function Navbar() {
               </li>
             ))}
           </ul>
-         <div>
+         <div className="flex items-center">
           <ThemeToggle className="hidden lg:inline-flex" />
 
           {/* Contact Button - Desktop */}
