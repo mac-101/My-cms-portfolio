@@ -83,8 +83,14 @@ nav li{
   100% { opacity: 1; transform: scale(1); }
 }
 
+@keyframes fadeIn{
+  0% {opacity: 0;}
+  100%{opacity: 1;}
+}
+
 /* --- TRIGGER CLASSES --- */
 .fade-up { animation-name: fadeInUp; }
+.fade-in {animation-name: fadeIn ;}
 .fade-right { animation-name: fadeInRight; }
 .fade-left { animation-name: fadeInLeft; }
 .rotate-up { animation-name: rotateInUp; }

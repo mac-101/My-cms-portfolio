@@ -11,7 +11,7 @@ function ScrollObserver() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const el = entry.target;
-        const animation = el.dataset.animation || 'fade-in-up';
+        const animation = el.dataset.animation || 'fade-up';
 
         if (entry.isIntersecting) {
           el.style.animationDelay = el.dataset.delay || '0s';

@@ -53,23 +53,17 @@ export function Navbar() {
         <nav className={`flex w-full max-w-5xl justify-between items-center py-3 px-6 rounded-full transition-all duration-300 ${
           isScrolled
             ? 'bg-white/95 backdrop-blur-lg shadow-xl border border-gray-200/30'
-            : 'bg-white/10 backdrop-blur-md border border-white/20'
+            : 'bg-white/90 backdrop-blur-md border border-gray-200/70 shadow-sm'
         }`}>
           {/* Logo */}
           <div
             className="flex items-center gap-3 cursor-pointer group"
             onClick={() => scrollToSection("home")}
           >
-            <div className={`w-10 h-10 flex items-center justify-center text-lg font-serif rounded-full font-bold transition-all duration-300 ${
-              isScrolled
-                ? 'bg-blue-600 text-white'
-                : 'bg-white/20 text-white backdrop-blur-sm'
-            } group-hover:scale-110 group-hover:rotate-12`}>
+            <div className="w-10 h-10 flex items-center justify-center text-lg font-serif rounded-full font-bold transition-all duration-300 bg-blue-600 text-white group-hover:scale-110 group-hover:rotate-12">
               M
             </div>
-            <h1 className={`font-bold text-xl transition-all duration-300 ${
-              isScrolled ? 'text-gray-900' : 'text-white'
-            }`}>
+            <h1 className="font-bold text-xl transition-all duration-300 text-gray-900">
               Dev<span className="text-blue-500">Mac</span>
             </h1>
           </div>
@@ -79,16 +73,14 @@ export function Navbar() {
             {navItems.slice(0, -1).map((item) => (
               <li
                 key={item.id}
-                className={`relative cursor-pointer transition-all duration-300 py-2 px-1 text-sm ${
-                  isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white/90 hover:text-white'
-                } ${activeSection === item.id ? (isScrolled ? 'text-blue-600 font-semibold' : 'text-white font-semibold') : ''}`}
+                className={`relative cursor-pointer transition-all duration-300 py-2 px-1 text-sm text-gray-700 hover:text-blue-600 ${
+                  activeSection === item.id ? 'text-blue-600 font-semibold' : ''
+                }`}
                 onClick={() => scrollToSection(item.id)}
               >
                 {item.label}
                 {activeSection === item.id && (
-                  <span className={`absolute bottom-0 left-0 w-full h-0.5 rounded-full ${
-                    isScrolled ? 'bg-blue-500' : 'bg-white'
-                  }`}></span>
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 rounded-full bg-blue-500"></span>
                 )}
               </li>
             ))}
@@ -97,11 +89,7 @@ export function Navbar() {
           {/* Contact Button - Desktop */}
           <button
             onClick={() => scrollToSection("contact")}
-            className={`hidden lg:block text-sm font-medium py-2 px-5 rounded-full transition-all duration-300 ${
-              isScrolled
-                ? 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md'
-                : 'bg-white/20 backdrop-blur-sm text-white border border-white/30 hover:bg-white/30 hover:scale-105'
-            }`}
+            className="hidden lg:block text-sm font-medium py-2 px-5 rounded-full transition-all duration-300 bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md"
           >
             Contact Me
           </button>
@@ -112,17 +100,17 @@ export function Navbar() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle Menu"
           >
-            <span className={`w-6 h-0.5 rounded-full transition-all duration-300 origin-center ${
-              isScrolled || isMenuOpen ? 'bg-gray-800' : 'bg-white'
-            } ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+            <span className={`w-6 h-0.5 rounded-full transition-all duration-300 origin-center bg-gray-800 ${
+              isMenuOpen ? 'rotate-45 translate-y-2' : ''
+            }`}></span>
             
-            <span className={`w-6 h-0.5 rounded-full transition-all duration-300 ${
-              isScrolled || isMenuOpen ? 'bg-gray-800' : 'bg-white'
-            } ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+            <span className={`w-6 h-0.5 rounded-full transition-all duration-300 bg-gray-800 ${
+              isMenuOpen ? 'opacity-0' : 'opacity-100'
+            }`}></span>
             
-            <span className={`w-6 h-0.5 rounded-full transition-all duration-300 origin-center ${
-              isScrolled || isMenuOpen ? 'bg-gray-800' : 'bg-white'
-            } ${isMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+            <span className={`w-6 h-0.5 rounded-full transition-all duration-300 origin-center bg-gray-800 ${
+              isMenuOpen ? '-rotate-45 -translate-y-2' : ''
+            }`}></span>
           </button>
         </nav>
       </div>

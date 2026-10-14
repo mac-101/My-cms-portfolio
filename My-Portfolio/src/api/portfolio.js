@@ -44,8 +44,11 @@ export async function getProjects() {
 
 export async function getTechStacks() {
   return cachedRequest('tech-stacks', async () => {
-    const response = await api.get('tech-stacks/')
-    return getList(response.data, 'tech stacks')
+    const response = await api.get('tech-stack/')
+    return getList(response.data, 'tech stacks').map((stacks) => ({
+      name: stacks.name,
+      efficiency: stacks.experience_level,
+    }))
   })
 }
 
@@ -64,4 +67,26 @@ export async function getResume() {
       : downloadUrl
 
   return { url }
+}
+
+export async function getSocials() {
+  return cachedRequest('socials', async () => {
+    const response = await api.get('socials/')
+    return getList(response.data, 'socials').map((social) => ({
+      name: social.platform,
+      link: social.url,
+      icon: social.icon,
+    }))
+  })
+}
+
+export async function getServices() {
+  return cachedRequest('services', async () => {
+    const response = await api.get('services/')
+    return getList(response.data, 'services').map((service) => ({
+      title: service.title,
+      desc: service.description,
+      icon: service.icon,
+    }))
+  })
 }

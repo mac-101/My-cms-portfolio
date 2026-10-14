@@ -11,7 +11,7 @@ export default function Projects() {
   return (
     <section id="projects" className="py-12 bg-white px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 reveal" data-animation="fade-up">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Featured <span className="text-blue-600">Projects</span>
           </h2>
@@ -58,14 +58,16 @@ export default function Projects() {
 
         {!loading && !error && featuredProjects.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-          {featuredProjects.map((project) => {
+          {featuredProjects.map((project, index) => {
             const liveUrl = project.link || '#'
             const githubUrl = project.github || '#'
 
             return (
               <div
                 key={project.title}
-                className="bg-white rounded-xl overflow-hidden border border-gray-200/80 transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:border-blue-200 flex flex-col group"
+                className="reveal bg-white rounded-xl overflow-hidden border border-gray-200/80 transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:border-blue-200 flex flex-col group"
+                data-animation="fade-up"
+                data-delay={`${(index % 4) * 0.12}s`}
               >
                 <div className="relative h-40 overflow-hidden bg-gray-100">
                   {project.image ? (
