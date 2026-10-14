@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { getProjects } from '../api/portfolio'
 import CallToAction from '../components/CallToAction'
 import ProjectCard from '../components/ProjectCard'
+import ThemeToggle from '../components/ThemeToggle'
 import usePortfolioData from '../hooks/usePortfolioData'
 
 export default function ProjectLibrary() {
@@ -16,8 +17,11 @@ export default function ProjectLibrary() {
   }, [pathname])
 
   return (
-    <section id="library" className="py-20 px-4 bg-[#fafafa] overflow-hidden">
+    <section id="library" className="theme-page py-20 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
+        <div className="fixed right-4 top-4 z-50">
+          <ThemeToggle />
+        </div>
         <div className="mb-16 reveal" data-animation="fade-up">
           <button
             onClick={() => navigate('/')}

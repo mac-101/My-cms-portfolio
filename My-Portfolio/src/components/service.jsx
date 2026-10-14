@@ -2,6 +2,7 @@ import React from 'react'
 import { Code2, Database, Smartphone, Zap, CheckCircle, Clock, TrendingUp } from 'lucide-react'
 import { getServices } from '../api/portfolio'
 import usePortfolioData from '../hooks/usePortfolioData'
+import Icon from './icon'
 
 export default function Services() {
     const { data: services = [], loading, error } = usePortfolioData(getServices)
@@ -83,9 +84,7 @@ export default function Services() {
                                 data-delay={`${index * 0.1}s`}
                             >
                                 {service.icon && (
-                                    <div className="w-14 h-14 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-6">
-                                        {service.icon}
-                                    </div>
+                                    <Icon url={service.icon_url} label={service.title} className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-3" />
                                 )}
                                 <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
                                 <p className="text-gray-600 mb-6">{service.desc}</p>

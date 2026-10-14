@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/home";
 import ProjectLibrary from "./pages/ProjectLibrary";
+import ThemeProvider from "./context/ThemeProvider";
 
 // This small component handles the "Watching" logic
 function ScrollObserver() {
@@ -50,15 +51,17 @@ function ScrollObserver() {
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <ScrollObserver /> {/* This stays active across all pages */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<ProjectLibrary />} />
-        </Routes>
-      </Router>
-    </div>
+    <ThemeProvider>
+      <div className="App">
+        <Router>
+          <ScrollObserver />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<ProjectLibrary />} />
+          </Routes>
+        </Router>
+      </div>
+    </ThemeProvider>
   );
 }
 

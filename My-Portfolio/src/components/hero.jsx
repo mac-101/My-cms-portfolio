@@ -97,8 +97,8 @@ export default function Hero() {
         </div>
 
         <div className="relative mx-auto w-full max-w-sm lg:max-w-md reveal" data-animation="fade-in" data-delay="0.25s">
-          <div className="absolute inset-6 rounded-full bg-blue-100/70 blur-3xl" />
-          <div className="relative aspect-5/5 overflow-hidden border-4 border-blue-100 bg-gray-50 shadow-xl">
+          {/* <div className="absolute inset-6 rounded-full bg-blue-100/70 blur-3xl" /> */}
+          <div className="relative aspect-5/5 overflow-hidden border-blue-100 bg-gray-50 shadow-xl">
             <img
               src={pic}
               alt="Charles MacAnthony"

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import ThemeToggle from "./ThemeToggle"
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -52,8 +53,8 @@ export function Navbar() {
       }`}>
         <nav className={`flex w-full max-w-5xl justify-between items-center py-3 px-6 rounded-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-lg shadow-xl border border-gray-200/30'
-            : 'bg-white/90 backdrop-blur-md border border-gray-200/70 shadow-sm'
+            ? 'theme-nav-scrolled backdrop-blur-lg shadow-xl border border-gray-200/30'
+            : 'theme-nav backdrop-blur-md border border-gray-200/70 shadow-sm'
         }`}>
           {/* Logo */}
           <div
@@ -85,6 +86,8 @@ export function Navbar() {
               </li>
             ))}
           </ul>
+
+          <ThemeToggle className="hidden lg:inline-flex" />
 
           {/* Contact Button - Desktop */}
           <button
@@ -126,9 +129,12 @@ export function Navbar() {
         />
 
         {/* Dropdown Container Card */}
-        <div className={`absolute top-24 right-4 w-64 bg-white rounded-2xl shadow-xl p-5 border border-gray-100 transition-all duration-300 origin-top-right ${
+        <div className={`absolute top-24 right-4 w-64 theme-surface rounded-2xl shadow-xl p-5 border border-gray-100 transition-all duration-300 origin-top-right ${
           isMenuOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
         }`}>
+          <div className="mb-2">
+            <ThemeToggle className="w-full justify-start gap-3 rounded-xl border-0 px-3.5 py-2.5 text-sm" />
+          </div>
           <ul className="flex flex-col gap-1">
             {navItems.map((item) => (
               <li

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { getTechStacks } from '../api/portfolio'
 import usePortfolioData from '../hooks/usePortfolioData'
-
+import Icon
+  from './icon'
 const categories = [
   { id: 'languages', label: 'Languages' },
   { id: 'frontend', label: 'Frontend' },
@@ -40,8 +41,10 @@ function SkillLevel({ skill, efficiency, hasEfficiency }) {
   return (
     <li>
       <div className="mb-2 flex items-center justify-between gap-3 text-sm">
-        <span className="text-gray-700">{skill.name}</span>
-        <span className="shrink-0 text-gray-500">{displayedEfficiency}%</span>
+        <span key={skill.name} className="inline-flex items-center gap-1 text-xs text-gray-600">
+          <Icon url={skill.icon_url} label={skill.name} className="h-4 w-4" />
+          {skill.name}
+        </span>        <span className="shrink-0 text-gray-500">{displayedEfficiency}%</span>
       </div>
       <div
         role="progressbar"
@@ -103,101 +106,101 @@ export default function Skills() {
       className="min-h-80 bg-gray-50 px-4 py-16 font-sans sm:px-6 lg:px-8"
     >
       {hasEnteredViewport && (
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-10 flex items-end justify-between gap-4 border-t border-gray-200 pt-8">
-          <div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 reveal" data-animation="pop-in">
-            <span className="h-2 w-2 rounded-full bg-blue-600" />
-            Stack
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 flex items-end justify-between gap-4 border-t border-gray-200 pt-8">
+            <div>
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 reveal" data-animation="pop-in">
+                <span className="h-2 w-2 rounded-full bg-blue-600" />
+                Stack
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900">Technical Skills</h2>
+            </div>
+
           </div>
-            <h2 className="text-2xl font-bold text-gray-900">Technical Skills</h2>
-          </div>
-          
+
+          {loading && (
+            <div
+              className="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4"
+              role="status"
+              aria-label="Loading technical skills"
+              aria-busy="true"
+            >
+              {Array.from({ length: 4 }, (_, index) => (
+                <div key={index} aria-hidden="true" className="space-y-5 motion-safe:animate-pulse">
+                  <div className="h-4 w-28 rounded bg-gray-200" />
+                  {Array.from({ length: 3 }, (_, skillIndex) => (
+                    <div key={skillIndex} className="space-y-2">
+                      <div className="h-4 rounded bg-gray-200" />
+                      <div className="h-1 rounded-full bg-gray-200" />
+                    </div>
+                  ))}
+                </div>
+              ))}
+              <span className="sr-only">Loading technical skills...</span>
+            </div>
+          )}
+          {error && <p role="alert" className="text-red-600">{error}</p>}
+          {!loading && !error && skills.length === 0 && (
+            <p className="text-gray-600">No technologies are listed yet.</p>
+          )}
+
+          {!loading && !error && skills.length > 0 && (
+            <>
+              {hasCategories ? (
+                <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+                  {groupedSkills.map((category) => (
+                    <div key={category.id}>
+                      <h3 className="mb-6 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-700">
+                        <span className="h-0.5 w-5 bg-blue-600" />
+                        {category.label}
+                      </h3>
+                      <ul className="space-y-5">
+                        {category.skills.map((skill) => {
+                          const hasEfficiency = typeof skill.efficiency === 'number'
+                            && Number.isFinite(skill.efficiency)
+                          const efficiency = Math.min(
+                            100,
+                            Math.max(0, hasEfficiency ? skill.efficiency : PLACEHOLDER_EFFICIENCY),
+                          )
+
+                          return (
+                            <SkillLevel
+                              key={skill.id}
+                              skill={skill}
+                              efficiency={efficiency}
+                              hasEfficiency={hasEfficiency}
+                            />
+                          )
+                        })}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <ul className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+                  {skills.map((skill) => {
+                    const hasEfficiency = typeof skill.efficiency === 'number'
+                      && Number.isFinite(skill.efficiency)
+                    const efficiency = Math.min(
+                      100,
+                      Math.max(0, hasEfficiency ? skill.efficiency : PLACEHOLDER_EFFICIENCY),
+                    )
+
+                    return (
+                      <SkillLevel
+                        key={skill.id}
+                        skill={skill}
+                        efficiency={efficiency}
+                        hasEfficiency={hasEfficiency}
+                      />
+                    )
+                  })}
+                </ul>
+              )}
+
+            </>
+          )}
         </div>
-
-        {loading && (
-          <div
-            className="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4"
-            role="status"
-            aria-label="Loading technical skills"
-            aria-busy="true"
-          >
-            {Array.from({ length: 4 }, (_, index) => (
-              <div key={index} aria-hidden="true" className="space-y-5 motion-safe:animate-pulse">
-                <div className="h-4 w-28 rounded bg-gray-200" />
-                {Array.from({ length: 3 }, (_, skillIndex) => (
-                  <div key={skillIndex} className="space-y-2">
-                    <div className="h-4 rounded bg-gray-200" />
-                    <div className="h-1 rounded-full bg-gray-200" />
-                  </div>
-                ))}
-              </div>
-            ))}
-            <span className="sr-only">Loading technical skills...</span>
-          </div>
-        )}
-        {error && <p role="alert" className="text-red-600">{error}</p>}
-        {!loading && !error && skills.length === 0 && (
-          <p className="text-gray-600">No technologies are listed yet.</p>
-        )}
-
-        {!loading && !error && skills.length > 0 && (
-          <>
-            {hasCategories ? (
-              <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-                {groupedSkills.map((category) => (
-                  <div key={category.id}>
-                    <h3 className="mb-6 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-700">
-                      <span className="h-0.5 w-5 bg-blue-600" />
-                      {category.label}
-                    </h3>
-                    <ul className="space-y-5">
-                      {category.skills.map((skill) => {
-                        const hasEfficiency = typeof skill.efficiency === 'number'
-                          && Number.isFinite(skill.efficiency)
-                        const efficiency = Math.min(
-                          100,
-                          Math.max(0, hasEfficiency ? skill.efficiency : PLACEHOLDER_EFFICIENCY),
-                        )
-
-                        return (
-                          <SkillLevel
-                            key={skill.id}
-                            skill={skill}
-                            efficiency={efficiency}
-                            hasEfficiency={hasEfficiency}
-                          />
-                        )
-                      })}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <ul className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
-                {skills.map((skill) => {
-                  const hasEfficiency = typeof skill.efficiency === 'number'
-                    && Number.isFinite(skill.efficiency)
-                  const efficiency = Math.min(
-                    100,
-                    Math.max(0, hasEfficiency ? skill.efficiency : PLACEHOLDER_EFFICIENCY),
-                  )
-
-                  return (
-                    <SkillLevel
-                      key={skill.id}
-                      skill={skill}
-                      efficiency={efficiency}
-                      hasEfficiency={hasEfficiency}
-                    />
-                  )
-                })}
-              </ul>
-            )}
-           
-          </>
-        )}
-      </div>
       )}
     </section>
   )

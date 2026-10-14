@@ -33,7 +33,7 @@ export async function getProjects() {
       title: project.title,
       category: project.category,
       description: project.description,
-      tags: project.tech_stack.map((technology) => technology.name),
+      tags: project.tech_stack,
       image: project.image,
       link: project.live_url,
       github: project.github_url,
@@ -46,6 +46,8 @@ export async function getTechStacks() {
   return cachedRequest('tech-stacks', async () => {
     const response = await api.get('tech-stack/')
     return getList(response.data, 'tech stacks').map((stacks) => ({
+      icon: stacks.icon,
+      icon_url: stacks.icon_url,
       name: stacks.name,
       efficiency: stacks.experience_level,
     }))
@@ -87,6 +89,7 @@ export async function getServices() {
       title: service.title,
       desc: service.description,
       icon: service.icon,
+      icon_url: service.icon_url,
     }))
   })
 }
