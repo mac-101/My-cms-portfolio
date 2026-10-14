@@ -86,7 +86,7 @@ export function Navbar() {
               </li>
             ))}
           </ul>
-
+         <div>
           <ThemeToggle className="hidden lg:inline-flex" />
 
           {/* Contact Button - Desktop */}
@@ -96,6 +96,7 @@ export function Navbar() {
           >
             Contact Me
           </button>
+           
 
           {/* Mobile Menu Button (Hamburger) */}
           <button
@@ -115,6 +116,7 @@ export function Navbar() {
               isMenuOpen ? '-rotate-45 -translate-y-2' : ''
             }`}></span>
           </button>
+          </div>
         </nav>
       </div>
 
